@@ -1,6 +1,10 @@
 spring:
   datasource:
-    url: jdbc:postgresql://db.dzivffhnzheiuubezzoe.supabase.co:5432/postgres?user=postgres&password=trewqZxcbnMpo$uy
+    url: jdbc:postgresql://ep-gentle-heart-a1h2uztb-pooler.ap-southeast-1.aws.neon.tech/neondb?user=neondb_owner&password=npg_ma46uYwTPKJg&sslmode=require
   jpa:
     hibernate:
       ddl-auto: update
+
+
+server:
+  port: 8081
