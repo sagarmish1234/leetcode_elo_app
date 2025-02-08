@@ -1,0 +1,11 @@
+meta {
+  name: Update problem status
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:8080/api/problems/3235/status/PENDING
+  body: none
+  auth: none
+}

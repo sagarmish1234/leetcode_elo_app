@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "leetcode_elo",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

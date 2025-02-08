@@ -91,6 +91,25 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>build-ui</id>
+						<phase>compile</phase> <!-- Bind to a specific Maven phase -->
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>bash</executable> <!-- Use 'bash' for shell scripts or 'cmd' for Windows -->
+							<arguments>
+								<argument>${project.basedir}/scripts/build_ui.sh</argument> <!-- Path to your script -->
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
