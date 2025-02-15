@@ -12,7 +12,7 @@ cd src/main/ui
 
 bun install
 bun run build
-rm -rf ../resources/static/*
+mkdir -p ../resources/static
 mv  dist/* ../resources/static
 
 
