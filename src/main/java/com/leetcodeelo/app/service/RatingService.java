@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RatingService {
@@ -54,7 +51,7 @@ public class RatingService {
     public List<ProblemDto> getProblems() {
         return problemRepository.findAll().stream().map(problem -> {
             return new ProblemDto(problem.getId(), problem.getTitle(), problem.getTitleSlug(), problem.getRating(), problem.getStatus());
-        }).toList();
+        }).sorted(Comparator.comparing(ProblemDto::rating)).toList();
     }
 
     public void updateProblemStatus(Long id, Status status) {

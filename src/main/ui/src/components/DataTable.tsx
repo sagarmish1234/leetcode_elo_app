@@ -23,6 +23,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Input } from "./ui/input"
+import {Problem} from "@/components/Columns.tsx";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -32,12 +33,22 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<Problem, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
 
+  // const defaultSelectedRowIds = React.useMemo(() => {
+  //   // Create a map of row IDs that should be selected by default
+  //   const selectedRowIds = {};
+  //   data.forEach((row, index) => {
+  //     if (row.status=="COMPLETED") {
+  //       selectedRowIds[index] = true;
+  //     }
+  //   });
+  //   return selectedRowIds;
+  // }, [data]);
 
   const table = useReactTable({
     data,
