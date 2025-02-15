@@ -12,8 +12,8 @@ cd src/main/ui
 
 bun install
 bun run build
-mkdir -p ../resources/static
-mv  dist/* ../resources/static
+mkdir -p ../../../target/classes/static
+mv  dist/* ../../../target/classes/static
 
 
 
