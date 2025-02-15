@@ -30,7 +30,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TValue>({
   columns,
   data,
 }: DataTableProps<Problem, TValue>) {
@@ -38,17 +38,6 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
-
-  // const defaultSelectedRowIds = React.useMemo(() => {
-  //   // Create a map of row IDs that should be selected by default
-  //   const selectedRowIds = {};
-  //   data.forEach((row, index) => {
-  //     if (row.status=="COMPLETED") {
-  //       selectedRowIds[index] = true;
-  //     }
-  //   });
-  //   return selectedRowIds;
-  // }, [data]);
 
   const table = useReactTable({
     data,

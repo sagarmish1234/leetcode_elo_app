@@ -7,6 +7,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {ArrowUpDown} from "lucide-react";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
+import {Input} from "@/components/ui/input.tsx";
 
 function App() {
     const [problems, setProblems] = useState<Problem[]>([])
@@ -14,7 +15,6 @@ function App() {
         const response = await fetch("http://localhost:8081/api/problems")
         setProblems(await response.json())
     }
-
 
 
     const columns: ColumnDef<Problem>[] = [
@@ -31,7 +31,24 @@ function App() {
                 </div>
             },
             size: 270,
-            header: "Title",
+            header: ({column}) => {
+                return (
+                    <div className="flex justify-center">
+                        <Input
+                            placeholder="Title"
+                            value={(column.getFilterValue() as string) ?? ''}
+                            onChange={(event) =>
+                                column.setFilterValue(event.target.value)
+                            }
+
+                        />
+                    </div>
+                )
+            },
+            filterFn: (row, _id, value: string) => {
+                console.log(value)
+                return row.original.Title.toLowerCase().indexOf(value.toLowerCase())>=0;
+            },
         },
         {
             id: "Rating",
@@ -109,7 +126,7 @@ function App() {
             filterFn: (row, _id, value: string) => {
                 if (value == "all")
                     return true;
-                const isSelected = row.original.status=="COMPLETED";
+                const isSelected = row.original.status == "COMPLETED";
                 const result = value === 'true'
                 return result == isSelected;
             },
