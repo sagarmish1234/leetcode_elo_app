@@ -12,7 +12,7 @@ import {Input} from "@/components/ui/input.tsx";
 function App() {
     const [problems, setProblems] = useState<Problem[]>([])
     const getData = async () => {
-        const response = await fetch("http://localhost:8081/api/problems")
+        const response = await fetch("/api/problems")
         setProblems(await response.json())
     }
 
@@ -138,7 +138,7 @@ function App() {
 
 
     const updateProblemStatus = async (id: number, status: string) => {
-        await fetch(`http://localhost:8081/api/problems/${id}/status/${status}`, {
+        await fetch(`/api/problems/${id}/status/${status}`, {
             method: "PUT"
         })
         console.log("Status updated for " + id);
