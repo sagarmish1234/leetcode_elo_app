@@ -27,7 +27,7 @@ function App() {
             accessorKey: 'Title',
             cell: ({row}) => {
                 return <div className="text-left"><strong> <a
-                    href={`https://leetcode.com/problems/${row.original.TitleSlug}`}> {row.original.Title} </a></strong>
+                    href={`https://leetcode.com/problems/${row.original.TitleSlug}`} target="_blank" rel="noopener noreferrer"> {row.original.Title} </a></strong>
                 </div>
             },
             size: 270,
