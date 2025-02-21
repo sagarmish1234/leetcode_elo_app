@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leetcodeelo.app.dto.ProblemDto;
 import com.leetcodeelo.app.entity.Problem;
 import com.leetcodeelo.app.repository.ProblemRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,7 @@ public class RatingService {
         problemRepository.saveAll(problems);
         System.out.println("Inserted successfully");
     }
-
+    @Cacheable("problems")
     public List<ProblemDto> getProblems() {
         return problemRepository.findAll().stream().map(problem -> {
             return new ProblemDto(problem.getId(), problem.getTitle(), problem.getTitleSlug(), problem.getRating(), problem.getStatus());
