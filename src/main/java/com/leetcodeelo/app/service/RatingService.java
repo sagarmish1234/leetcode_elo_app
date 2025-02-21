@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leetcodeelo.app.dto.ProblemDto;
 import com.leetcodeelo.app.entity.Problem;
 import com.leetcodeelo.app.repository.ProblemRepository;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -18,12 +20,15 @@ public class RatingService {
 
     private final ProblemRepository problemRepository;
 
-    public RatingService(ProblemRepository problemRepository) {
+    private final CacheManager cacheManager;
+
+    public RatingService(ProblemRepository problemRepository, CacheManager cacheManager) {
         this.problemRepository = problemRepository;
+        this.cacheManager = cacheManager;
     }
 
 
-    @Scheduled(fixedDelay = 7*24*60*60*1000)
+    @Scheduled(fixedDelay = 7 * 24 * 60 * 60 * 1000)
     public void updateProblemList() throws IOException {
         System.out.println("Started");
         URL url = new URL("https://raw.githubusercontent.com/zerotrac/leetcode_problem_rating/refs/heads/main/data.json");
@@ -48,6 +53,7 @@ public class RatingService {
         problemRepository.saveAll(problems);
         System.out.println("Inserted successfully");
     }
+
     @Cacheable("problems")
     public List<ProblemDto> getProblems() {
         return problemRepository.findAll().stream().map(problem -> {
@@ -61,6 +67,9 @@ public class RatingService {
             throw new RuntimeException("No problem found with the given id:" + id);
         problem.get().setStatus(status);
         problemRepository.save(problem.get());
+        Cache problems = cacheManager.getCache("problems");
+        if (problems != null)
+            problems.clear();
     }
 
 
